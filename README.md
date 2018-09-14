@@ -33,3 +33,6 @@ Abp.Apollo
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
         }
     }
+
+
+暂时采用携程官方推荐的Microsoft.Extensions.Configuration，可以结合Redis的发布订阅功能建立一个ApolloRedisSettingStore
