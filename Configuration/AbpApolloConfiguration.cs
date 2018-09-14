@@ -13,22 +13,57 @@
 #endregion
 
 
-using Abp.Apollo.Apollo;
+using Abp.Apollo.Configuration.Startup;
+using Abp.Dependency;
+using Com.Ctrip.Framework.Apollo.Core;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Abp.Apollo.Configuration
 {
     public class AbpApolloConfiguration : IAbpApolloConfiguration
     {
-        public string AbpApolloJsonFile { get; set; }
-        public string AbpApolloJsonRoot { get; set; }
-        public IConfiguration Configuration { get; set; }
-        public AbpApolloOptions AbpApolloOption { get; set; }
-        public AbpApolloConfiguration()
+        public IIocManager IocManager { get; set; }
+        public IConfiguration Configuration { get; private set; }
+        public AbpApolloConfiguration(IIocManager iocManager,
+            AbpApolloOptions apolloOptions)
         {
-            AbpApolloJsonFile = @"Configs\AppSettings.json";
-            AbpApolloJsonRoot = "Apollo";
-            AbpApolloOption = new AbpApolloOptions();
+            IocManager = iocManager;
+            InitilizeAbpApollo(apolloOptions);
+        }
+        private void InitilizeAbpApollo(AbpApolloOptions apolloOptions)
+        {
+            var builder = new ConfigurationBuilder();
+            var configurations = new List<IConfiguration>();
+            var apolloBuilder = builder
+                .AddJsonFile(apolloOptions.AbpApolloJsonFile)
+                .AddApollo(builder.Build().GetSection(apolloOptions.AbpApolloJsonRoot))
+                .AddNamespace(ConfigConsts.NamespaceApplication, this)
+                ;
+            if (apolloOptions.AddInMemory)
+            {
+                if (apolloOptions.InitialData.Count() > 0)
+                {
+                    apolloBuilder.AddInMemoryCollection(apolloOptions.InitialData);
+                }
+                else
+                {
+                    apolloBuilder.AddInMemoryCollection();
+                }
+            }
+
+            if (Configuration != null)
+            {
+                apolloBuilder.AddConfiguration(Configuration);
+            }
+
+            foreach (var namespance in apolloOptions.Namespances)
+            {
+                apolloBuilder.AddNamespace(namespance, this);
+            }
+
+            Configuration = apolloBuilder.Build();
         }
     }
 }

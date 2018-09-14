@@ -14,8 +14,6 @@
 
 using Abp.Apollo.Apollo;
 using Abp.Apollo.Configuration;
-using Abp.Configuration;
-using Abp.Configuration.Startup;
 using Abp.Modules;
 using System.Reflection;
 
@@ -26,9 +24,11 @@ namespace Abp.Apollo
         public override void PreInitialize()
         {
             IocManager.Register<IAbpApolloConfiguration, AbpApolloConfiguration>();
-            Configuration.ReplaceService<ISettingStore, ApolloSettingStore>();
+            //实现自己的ApolloSettingManager
+            IocManager.Register<IApolloSettingManager, ApolloSettingManager>();
+            //Configuration.ReplaceService<ISettingStore, ApolloSettingStore>();
             /// 取代Application配置的缓存项,这样Apollo更新后能同步到当前应用
-            Configuration.ReplaceService<ISettingManager, ApolloSettingManager>();
+            //Configuration.ReplaceService<ISettingManager, ApolloSettingManager>();
             
         }
         public override void Initialize()

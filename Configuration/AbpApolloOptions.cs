@@ -13,21 +13,25 @@
 #endregion
 
 
+using Abp.Apollo.Configuration.Startup;
+using Com.Ctrip.Framework.Apollo.Core;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Abp.Apollo.Configuration
 {
     public class AbpApolloOptions
     {
-        public List<string> Namespances { get; set; }
+        public string AbpApolloJsonFile { get; set; } = @"Configs\AppSettings.json";
+        public string AbpApolloJsonRoot { get; set; } = "Apollo";
+        public List<string> Namespances { get; set; } = new List<string>();
         public bool AddInMemory { get; set; }
-        public IEnumerable<KeyValuePair<string, string>> InitialData { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> InitialData { get; set; } = new Dictionary<string, string>();
         public IConfiguration Configuration { get; set; }
         public AbpApolloOptions()
         {
-            Namespances = new List<string>();
-            InitialData = new Dictionary<string, string>();
+
         }
     }
 }

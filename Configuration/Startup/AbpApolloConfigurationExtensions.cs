@@ -15,19 +15,25 @@
 using Abp.Apollo.Apollo;
 using Abp.Configuration;
 using Abp.Configuration.Startup;
+using Abp.Dependency;
 using Com.Ctrip.Framework.Apollo;
+using System;
 
 namespace Abp.Apollo.Configuration.Startup
 {
     public static class AbpApolloConfigurationExtensions
     {
-        public static IAbpApolloConfiguration AbpApollo(this IAbpStartupConfiguration configuration)
+
+        public static IAbpApolloConfiguration AbpApollo(this IAbpStartupConfiguration configuration, Action<AbpApolloOptions> abpApolloOption)
         {
+            configuration.IocManager.RegisterIfNot<AbpApolloOptions>();
+            abpApolloOption(configuration.IocManager.Resolve<AbpApolloOptions>());
             return configuration.Get<IAbpApolloConfiguration>();
         }
+
         public static IApolloConfigurationBuilder AddNamespace(this IApolloConfigurationBuilder builder, string @namespance, IAbpApolloConfiguration configuration)
         {
-            var apolloBuilder =  builder.AddNamespace(@namespance);
+            var apolloBuilder =  builder.AddNamespace(@namespance, @namespance);
             apolloBuilder.ConfigRepositoryFactory
                 .GetConfigRepository(@namespance)
                 .AddChangeListener(new RepositoryChangeListener(configuration));
