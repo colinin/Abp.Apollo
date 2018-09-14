@@ -38,7 +38,7 @@ namespace Abp.Apollo.Configuration
             var apolloBuilder = builder
                 .AddJsonFile(apolloOptions.AbpApolloJsonFile)
                 .AddApollo(builder.Build().GetSection(apolloOptions.AbpApolloJsonRoot))
-                .AddNamespace(ApolloConsts.DEFAULT_NAMESPANCE, this)
+                .AddNamespace(ApolloConsts.DEFAULT_NAMESPACE, this)
                 ;
             if (apolloOptions.AddInMemory)
             {
