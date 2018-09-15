@@ -24,11 +24,14 @@ namespace Abp.Apollo.Configuration.Startup
     public static class AbpApolloConfigurationExtensions
     {
 
-        public static IAbpApolloConfiguration AbpApollo(this IAbpStartupConfiguration configuration, Action<AbpApolloOptions> abpApolloOption)
+        public static void UseAbpApollo(this IModuleConfigurations configuration)
         {
-            configuration.IocManager.RegisterIfNot<AbpApolloOptions>();
-            abpApolloOption(configuration.IocManager.Resolve<AbpApolloOptions>());
-            return configuration.Get<IAbpApolloConfiguration>();
+            configuration.UseAbpApollo(option => { });
+        }
+        public static void UseAbpApollo(this IModuleConfigurations configuration, Action<AbpApolloOptions> abpApolloOption)
+        {
+            configuration.AbpConfiguration.IocManager.RegisterIfNot<AbpApolloOptions>();
+            abpApolloOption(configuration.AbpConfiguration.IocManager.Resolve<AbpApolloOptions>());
         }
 
         public static IApolloConfigurationBuilder AddNamespace(this IApolloConfigurationBuilder builder, string @namespance, IAbpApolloConfiguration configuration)
