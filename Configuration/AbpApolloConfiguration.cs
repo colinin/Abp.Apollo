@@ -52,9 +52,9 @@ namespace Abp.Apollo.Configuration
                 }
             }
 
-            if (Configuration != null)
+            if (apolloOptions.Configuration != null)
             {
-                apolloBuilder.AddConfiguration(Configuration);
+                apolloBuilder.AddConfiguration(apolloOptions.Configuration);
             }
 
             foreach (var namespance in apolloOptions.Namespances)
