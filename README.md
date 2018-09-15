@@ -20,8 +20,9 @@ Abp.Apollo
     {
         public override void PreInitialize()
         {
+            //Configuration.Modules.UseAbpApollo();
             //Apollo配置
-            Configuration.AbpApollo(options =>
+            Configuration.Modules.UseAbpApollo(options =>
             {
                 options.AbpApolloJsonFile = "AppSettings.json";
                 options.AbpApolloJsonRoot = "Apollo";
