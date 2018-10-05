@@ -20,12 +20,15 @@ Abp.Apollo
     {
         public override void PreInitialize()
         {
-            //配置文件
-            Configuration.AbpApollo().AbpApolloJsonFile = "AppSettings.json";
-            //Apollo节点名称
-            Configuration.AbpApollo().AbpApolloJsonRoot = "Apollo";
-            Configuration.AbpApollo().AbpApolloOption.Namespances.Add("你的Apollo Namespance");
-            //其他一些Apollo配置
+            //Configuration.Modules.UseAbpApollo();
+            //Apollo配置
+            Configuration.Modules.UseAbpApollo(options =>
+            {
+                options.AbpApolloJsonFile = "AppSettings.json";
+                options.AbpApolloJsonRoot = "Apollo";
+                options.Namespances.Add("MainApplication");
+                options.AddInMemory = false;
+            });
             Configuration.Settings.Providers.Add<DomainAppSettingProvider>();
         }
         public override void Initialize()
@@ -35,4 +38,4 @@ Abp.Apollo
     }
 
 
-暂时采用携程官方推荐的Microsoft.Extensions.Configuration，可以结合Redis的发布订阅功能建立一个ApolloRedisSettingStore
+暂时采用携程官方推荐的Microsoft.Extensions.Configuration

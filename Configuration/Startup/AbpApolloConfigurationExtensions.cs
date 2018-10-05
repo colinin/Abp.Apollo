@@ -13,6 +13,7 @@
 #endregion
 
 using Abp.Apollo.Apollo;
+using Abp.Configuration;
 using Abp.Configuration.Startup;
 using Abp.Dependency;
 using Com.Ctrip.Framework.Apollo;
@@ -22,6 +23,7 @@ namespace Abp.Apollo.Configuration.Startup
 {
     public static class AbpApolloConfigurationExtensions
     {
+
         public static void UseAbpApollo(this IModuleConfigurations configuration)
         {
             configuration.UseAbpApollo(option => { });

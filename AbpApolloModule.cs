@@ -26,10 +26,6 @@ namespace Abp.Apollo
             IocManager.Register<IAbpApolloConfiguration, AbpApolloConfiguration>();
             //实现自己的ApolloSettingManager
             IocManager.Register<IApolloSettingManager, ApolloSettingManager>();
-            //Configuration.ReplaceService<ISettingStore, ApolloSettingStore>();
-            /// 取代Application配置的缓存项,这样Apollo更新后能同步到当前应用
-            //Configuration.ReplaceService<ISettingManager, ApolloSettingManager>();
-            
         }
         public override void Initialize()
         {

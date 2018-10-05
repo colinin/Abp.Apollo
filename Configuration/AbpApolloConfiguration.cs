@@ -12,7 +12,6 @@
 *************************************************************************************/
 #endregion
 
-
 using Abp.Apollo.Apollo;
 using Abp.Apollo.Configuration.Startup;
 using Abp.Dependency;
