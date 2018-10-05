@@ -13,10 +13,33 @@
 #endregion
 
 
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+
 namespace Abp.Apollo.Apollo
 {
     public static class SettingConfigurationExtensions
     {
-
+        public static string GetSettingValue(this IApolloSettingManager settingManager, string key)
+        {
+            return settingManager.GetSettingValue(ApolloConsts.DEFAULT_NAMESPACE, key);
+        }
+        public static T GetSettingValueOfType<T>(this IApolloSettingManager settingManager, string @namespace, string key)
+        {
+            try
+            {
+                var value = settingManager.GetSettingValue(@namespace, key);
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    return JsonConvert.DeserializeObject<T>(value);
+                }
+            }
+            catch { }
+            return default(T);
+        }
+        public static Task<T> GetSettingValueOfTypeAsync<T>(this IApolloSettingManager settingManager, string @namespace, string key)
+        {
+            return Task.FromResult(settingManager.GetSettingValueOfType<T>(@namespace, key));
+        }
     }
 }

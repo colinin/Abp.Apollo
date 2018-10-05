@@ -13,9 +13,9 @@
 #endregion
 
 
+using Abp.Apollo.Apollo;
 using Abp.Apollo.Configuration.Startup;
 using Abp.Dependency;
-using Com.Ctrip.Framework.Apollo.Core;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace Abp.Apollo.Configuration
             var apolloBuilder = builder
                 .AddJsonFile(apolloOptions.AbpApolloJsonFile)
                 .AddApollo(builder.Build().GetSection(apolloOptions.AbpApolloJsonRoot))
-                .AddNamespace(ConfigConsts.NamespaceApplication, this)
+                .AddNamespace(ApolloConsts.DEFAULT_NAMESPACE, this)
                 ;
             if (apolloOptions.AddInMemory)
             {
@@ -53,9 +53,9 @@ namespace Abp.Apollo.Configuration
                 }
             }
 
-            if (Configuration != null)
+            if (apolloOptions.Configuration != null)
             {
-                apolloBuilder.AddConfiguration(Configuration);
+                apolloBuilder.AddConfiguration(apolloOptions.Configuration);
             }
 
             foreach (var namespance in apolloOptions.Namespances)

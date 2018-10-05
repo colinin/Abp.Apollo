@@ -205,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbpApolloModule.cs" />
+    <Compile Include="Apollo\ApolloConsts.cs" />
     <Compile Include="Apollo\ApolloSettingManager.cs" />
     <Compile Include="Apollo\IApolloSettingManager.cs" />
     <Compile Include="Apollo\RepositoryChangeListener.cs" />

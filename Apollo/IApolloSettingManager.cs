@@ -18,13 +18,50 @@ using System.Threading.Tasks;
 
 namespace Abp.Apollo.Apollo
 {
+    /// <summary>
+    /// Apollo配置接口
+    /// </summary>
     public interface IApolloSettingManager
     {
+        /// <summary>
+        /// 获取所有配置项
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <returns></returns>
         IReadOnlyList<ISettingValue> GetAllSettingValues(string @namespance);
+        /// <summary>
+        /// 获取所有配置项 异步方法
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <returns></returns>
         Task<IReadOnlyList<ISettingValue>> GetAllSettingValuesAsync(string @namespance);
+        /// <summary>
+        /// 获取一个配置值
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <param name="name">配置名称</param>
+        /// <returns></returns>
         string GetSettingValue(string @namespance, string name);
+        /// <summary>
+        /// 获取一个配置值 异步方法
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <param name="name">配置名称</param>
+        /// <returns></returns>
         Task<string> GetSettingValueAsync(string @namespance, string name);
+        /// <summary>
+        /// 获取一个配置项
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <param name="name">配置名称</param>
+        /// <returns></returns>
         ISettingValue GetSetting(string @namespance, string name);
+        /// <summary>
+        /// 获取一个配置项 异步方法
+        /// </summary>
+        /// <param name="namespance">命名空间</param>
+        /// <param name="name">配置名称</param>
+        /// <returns></returns>
         Task<ISettingValue> GetSettingAsync(string @namespance, string name);
 
 

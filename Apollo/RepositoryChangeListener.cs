@@ -31,7 +31,7 @@ namespace Abp.Apollo.Apollo
             {
                 foreach (var property in newProperties.Source)
                 {
-                    _apolloConfiguration.Configuration[property.Key] = property.Value;
+                    _apolloConfiguration.Configuration.GetSection(namespaceName)[property.Key] = property.Value;
                 }
             }
         }

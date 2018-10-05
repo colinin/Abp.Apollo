@@ -18,6 +18,6 @@ namespace Abp.Apollo
 {
     public class ProjectVersion
     {
-        public const string Version = "1.0.0.0";
+        public const string Version = "3.8.2";
     }
 }

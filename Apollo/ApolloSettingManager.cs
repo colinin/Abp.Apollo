@@ -61,7 +61,8 @@ namespace Abp.Apollo.Apollo
         }
         private ISettingValue GetSettingValueOrNull(string @namespance, string name)
         {
-            var value = _configuration.Configuration.GetSection(@namespance)?.GetValue(name, "");
+            var configuration = _configuration.Configuration.GetSection(@namespance);
+            var value = configuration?.GetValue(name, "");
             if (!string.IsNullOrWhiteSpace(value))
             {
                 return new SettingValueObject(name, value);
